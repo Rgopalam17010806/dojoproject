@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} Book an activity {% endblock %}
+{% block header %} Book an activity {% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<div id="root"></div>
+
+<script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
+
+
+{% endif %}
+{% endblock %}
