@@ -1,8 +1,46 @@
 {% extends "base.html" %}
-{% block title %} Organise an activity {% endblock %}
-{% block header %} Organise an activity {% endblock %}
+
+{% block title %}Organise an Activity{% endblock %}
+
+{% block header %}Organise an Activity{% endblock %}
+
 {% block content %}
 {% if user.is_authenticated %}
+<div class="rectangle">
+    <form method="POST" action="{{ url_for('views.organiseactivity_view') }}">
+        {{ form.hidden_tag() }}
 
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field, errors in form.errors.items() %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            {{ form.activityname.label(class="form-label") }}
+            {{ form.activityname(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.activitydate.label(class="form-label") }}
+            <input type="date" name="{{ form.activitydate.name }}" id="{{ form.activitydate.id }}" class="form-control" min="{{ today_date }}" value="{{ form.activitydate.data }}">
+        </div>
+
+        <div class="form-group">
+            {{ form.activitytime.label(class="form-label") }}
+            {{ form.activitytime(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+{% else %}
+    <p>Please log in to organise an activity.</p>
 {% endif %}
 {% endblock %}
