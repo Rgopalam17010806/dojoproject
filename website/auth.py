@@ -15,7 +15,8 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-
+os.environ['GOOGLE_CLIENT_ID'] = '521818669426-2grb3c6jndhp1ohfva773ka0m22ng60s.apps.googleusercontent.com'
+os.environ['GOOGLE_CLIENT_SECRET'] = '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'
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', None)
@@ -124,6 +125,7 @@ def signup():
         email = request.form.get("email")
         firstName = request.form.get("firstName")
         lastName = request.form.get("lastName")
+        isteacher = request.form.get("isTeacher")
         password = request.form.get("password")
         confirm = request.form.get("confirm")
         phone = request.form.get("phone")
@@ -136,7 +138,7 @@ def signup():
             flash('Passwords dont match', category='error')
         else:
             user = User(email=email, password=generate_password_hash(password), first_name=firstName,
-                        last_name=lastName, phone=phone, type='CUSTOM')
+                        last_name=lastName, phone=phone, isteacher=isteacher,type='CUSTOM')
             db.session.add(user)
             db.session.commit()
             flash('Account created', category='success')
