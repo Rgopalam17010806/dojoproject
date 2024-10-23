@@ -15,8 +15,7 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-os.environ['GOOGLE_CLIENT_ID'] = '521818669426-2grb3c6jndhp1ohfva773ka0m22ng60s.apps.googleusercontent.com'
-os.environ['GOOGLE_CLIENT_SECRET'] = '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'
+
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', None)
