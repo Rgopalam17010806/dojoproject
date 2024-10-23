@@ -13,16 +13,17 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(150))
     phone = db.Column(db.String(50))
     type = db.Column(db.String(10))
+    role = db.Column(db.String(10))
 
-class organiseactivity(db.Model): 
+class OrganiseActivity(db.Model): 
     id = db.Column(db.Integer, primary_key=True)
-    activityname = db.Column(db.String(150), nullable=False)
-    activitydate = db.Column(db.Date, nullable=False)
-    activitytime = db.Column(db.Time, nullable=False)
+    activity_name = db.Column(db.String(150), nullable=False)
+    activity_date = db.Column(db.Date, nullable=False)
+    activity_time = db.Column(db.Time, nullable=False)
     
 
-class organiseactivityForm(FlaskForm):  # Example form using Flask-WTF
-    activityname = StringField('Activity Name', validators=[DataRequired()])
-    activitydate = DateField('Activity Date', validators=[DataRequired()])
-    activitytime = TimeField('Activity Time', validators=[DataRequired()])
+class OrganiseActivityForm(FlaskForm):  # Example form using Flask-WTF
+    activity_name = StringField('Activity Name', validators=[DataRequired()])
+    activity_date = DateField('Activity Date', validators=[DataRequired()])
+    activity_time = TimeField('Activity Time', validators=[DataRequired()])
     submit = SubmitField('Organise Activity')

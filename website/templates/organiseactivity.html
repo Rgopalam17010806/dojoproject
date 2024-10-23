@@ -23,18 +23,18 @@
         {% endif %}
 
         <div class="form-group">
-            {{ form.activityname.label(class="form-label") }}
-            {{ form.activityname(class="form-control") }}
+            {{ form.activity_name.label(class="form-label") }}
+            {{ form.activity_name(class="form-control") }}
         </div>
 
         <div class="form-group">
-            {{ form.activitydate.label(class="form-label") }}
-            <input type="date" name="{{ form.activitydate.name }}" id="{{ form.activitydate.id }}" class="form-control" min="{{ today_date }}" value="{{ form.activitydate.data }}">
+            {{ form.activity_date.label(class="form-label") }}
+            <input type="date" name="{{ form.activity_date.name }}" id="{{ form.activity_date.id }}" class="form-control" min="{{ today_date }}" value="{{ form.activity_date.data }}">
         </div>
 
         <div class="form-group">
-            {{ form.activitytime.label(class="form-label") }}
-            {{ form.activitytime(class="form-control") }}
+            {{ form.activity_time.label(class="form-label") }}
+            {{ form.activity_time(class="form-control") }}
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
