@@ -1,6 +1,6 @@
 from datetime import date
 from flask import Blueprint, flash, redirect, render_template, url_for
-from flask_login import login_required, current_user,load_user
+from flask_login import login_required, current_user, login_user
 from website import db
 
 from website.models import organiseactivity, organiseactivityForm
@@ -21,7 +21,7 @@ def bookactivity():
 @views.route('/organiseactivity', methods=['GET','POST'])
 @login_required
 def organiseactivity_view():
-    if load_user(current_user.id).role !='admin':
+    if login_user(current_user.id).role !='admin':
         flash('Sorry but this is only for admins','error')
         return redirect(url_for('home'))
     form = organiseactivityForm()
@@ -41,3 +41,23 @@ def organiseactivity_view():
 @views.route('/contactus')
 def contactus():
     return render_template("contactus.html")
+
+@views.route('/forgotpassword')
+def forgotpassword():
+    return render_template("forgotpassword.html")
+
+@views.route('/resetpassword')
+def resetpassword():
+    return render_template("resetpassword.html")
+
+@views.route('/viewourupcomingsessions')
+def viewourupcomingsessions():
+    return render_template("viewourupcomingsessions.html")
+
+@views.route('/viewyourbookings')
+def viewyourbookings():
+    return render_template("viewyourbookings.html")
+
+@views.route('/waitlist')
+def waitlist():
+    return render_template("waitlist.html")
