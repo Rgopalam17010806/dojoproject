@@ -42,4 +42,28 @@ def organiseactivity_view():
         db.session.add(new_activity)
         db.session.commit()
     return render_template("organiseactivity.html", user = current_user, form=form, today_date=today_date)
- 
+
+
+@views.route('/contactus')
+def contactus():
+    return render_template("contactus.html")
+
+@views.route('/forgotpassword')
+def forgotpassword():
+    return render_template("forgotpassword.html")
+
+@views.route('/resetpassword')
+def resetpassword():
+    return render_template("resetpassword.html")
+
+@views.route('/viewourupcomingsessions')
+def viewourupcomingsessions():
+    return render_template("viewourupcomingsessions.html")
+
+@views.route('/viewyourbookings')
+def viewyourbookings():
+    return render_template("viewyourbookings.html")
+
+@views.route('/waitlist')
+def waitlist():
+    return render_template("waitlist.html")
