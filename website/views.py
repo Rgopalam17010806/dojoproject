@@ -3,7 +3,6 @@ from functools import wraps
 from flask import Blueprint, redirect, render_template, flash, url_for
 from flask_login import login_required, current_user
 from website import db
-
 from website.models import OrganiseActivity, OrganiseActivityForm
 
 views = Blueprint('views', __name__)
@@ -22,10 +21,20 @@ def admin_required(f):
 def home():
     return render_template("home.html", user=current_user)
 
+@views.route('/myactivities')
+@login_required
+def myactivites():
+    return render_template("myactivities.html")
+
 @views.route('/bookactivity')
 @login_required
 def bookactivity():
     return render_template("bookactivity.html", user=current_user)
+
+@views.route('/myactivities')
+@login_required
+def myactivities():
+    return render_template("myactivities.html", user=current_user)
 
 @views.route('/organiseactivity', methods=['GET','POST'])
 @login_required

@@ -1,14 +1,15 @@
 import json
 import os
 
+from flask_mail import Mail, Message
 import requests
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from oauthlib.oauth2 import WebApplicationClient
-
 from .models import User
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
-from website import db
+from website import db, send_email, send_template_email
+from website import mail
 
 auth = Blueprint('auth', __name__)
 GOOGLE_DISCOVERY_URL = (
@@ -65,6 +66,7 @@ def callback():
                         last_name=last_name, phone='', type='GOOGLE')
             db.session.add(user)
             db.session.commit()
+            send_template_email("Coders Dojo Registration", users_email, 'emails/registration.html')
         if user.type != "GOOGLE":
             flash('Looks like you have signed in using username and password before, try logging in using username '
                   'and password combination', category='error')
@@ -138,6 +140,7 @@ def signup():
                         last_name=lastName, phone=phone, isteacher=isteacher,type='CUSTOM')
             db.session.add(user)
             db.session.commit()
+            send_template_email("Coders Dojo Registration", email, 'emails/registration.html')
             flash('Account created', category='success')
             login_user(user, remember=True)
             # return redirect(url_for('views.home'))
