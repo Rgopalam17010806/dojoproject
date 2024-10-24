@@ -124,7 +124,6 @@ def signup():
         email = request.form.get("email")
         firstName = request.form.get("firstName")
         lastName = request.form.get("lastName")
-        isteacher = request.form.get("isTeacher")
         password = request.form.get("password")
         confirm = request.form.get("confirm")
         phone = request.form.get("phone")
@@ -137,7 +136,7 @@ def signup():
             flash('Passwords dont match', category='error')
         else:
             user = User(email=email, password=generate_password_hash(password), first_name=firstName,
-                        last_name=lastName, phone=phone, isteacher=isteacher,type='CUSTOM')
+                        last_name=lastName, phone=phone,type='CUSTOM')
             db.session.add(user)
             db.session.commit()
             send_template_email("Coders Dojo Registration", email, 'emails/registration.html')
