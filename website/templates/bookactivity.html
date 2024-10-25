@@ -3,10 +3,17 @@
 {% block header %} Book an activity {% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
-<div id="root"></div>
-
-<script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
-
-
+    <div class="activites">
+        {% for organise_activity in activites %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">{{organise_activity.activity_name}}</h5>
+                <p class="card-text">{{organise_activity.activity_time}}</p>
+                <p class="card-text">{{organise_activity.activity_date}}</p>
+                <a href="#" class="btn btn-primary">Book Activity</a>
+                </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endif %}
 {% endblock %}
