@@ -27,3 +27,7 @@ class OrganiseActivityForm(FlaskForm):  # Example form using Flask-WTF
     activity_date = DateField('Activity Date', validators=[DataRequired()])
     activity_time = TimeField('Activity Time', validators=[DataRequired()])
     submit = SubmitField('Organise Activity')
+
+
+# class BookActivity(db.Model):
+#     id = db.Colunn(db.Integer, primary_key=True)
