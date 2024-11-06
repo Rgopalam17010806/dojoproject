@@ -14,7 +14,7 @@ mail = Mail()
 def send_email(subject, to, body):
     msg = Message(
                 subject=subject, 
-                sender='ritugopalam6@gmail.com',  # Ensure this matches MAIL_USERNAME
+                sender='coderdojo010101@gmail.com',  # Ensure this matches MAIL_USERNAME
                 recipients=[to]  # Replace with actual recipient's email
             )
     msg.body = body
@@ -23,7 +23,7 @@ def send_email(subject, to, body):
 def send_template_email(subject, to, template):
     msg = Message(
                 subject=subject, 
-                sender='ritugopalam6@gmail.com',  # Ensure this matches MAIL_USERNAME
+                sender='coderdojo010101@gmail.com',  # Ensure this matches MAIL_USERNAME
                 recipients=[to]  # Replace with actual recipient's email
             )
     msg.html = render_template(template, user=current_user)
@@ -33,8 +33,8 @@ def create_app():
     app = Flask(__name__)
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USERNAME'] = 'ritugopalam6@gmail.com'  # Use your actual Gmail address
-    app.config['MAIL_PASSWORD'] = os.environ.get('GMAIL_APP_PASSWORD', None)     # Use your generated App Password
+    app.config['MAIL_USERNAME'] = 'coderdojo010101@gmail.com'  # Use your actual Gmail address
+    app.config['MAIL_PASSWORD'] ='pbcotcqswbolrqfz' #os.environ.get('GMAIL_APP_PASSWORD', None)     # Use your generated App Password
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
     mail = Mail(app)

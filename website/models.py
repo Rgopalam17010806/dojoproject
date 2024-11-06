@@ -1,8 +1,11 @@
+from datetime import datetime
 from wtforms import DateField, StringField, SubmitField, TimeField
 from website import db
 from flask_login import UserMixin
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
+import pytz
+
 
 
 class User(db.Model, UserMixin):  
@@ -27,3 +30,10 @@ class OrganiseActivityForm(FlaskForm):  # Example form using Flask-WTF
     activity_date = DateField('Activity Date', validators=[DataRequired()])
     activity_time = TimeField('Activity Time', validators=[DataRequired()])
     submit = SubmitField('Organise Activity')
+
+
+class BookActivity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    activity_id = db.Column(db.Integer, db.ForeignKey('organise_activity.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
