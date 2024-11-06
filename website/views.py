@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from functools import wraps
 from flask import Blueprint, redirect, render_template, flash, url_for
 from flask_login import login_required, current_user
@@ -26,10 +26,14 @@ def home():
 def myactivites():
     return render_template("myactivities.html")
 
+
 @views.route('/bookactivity')
 @login_required
 def bookactivity():
-    return render_template("bookactivity.html", user=current_user)
+    today = datetime.today().date()
+    activities = OrganiseActivity.query.filter(OrganiseActivity.activity_date >= today).all()
+
+    return render_template("bookactivity.html", user=current_user, activities=activities)
 
 @views.route('/myactivities')
 @login_required
