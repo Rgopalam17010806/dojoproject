@@ -12,32 +12,32 @@ DB_NAME = "database.db"
 mail = Mail()
 
 # def send_email(subject, to, body):
-#     msg = Message(
-#                 subject=subject, 
-#                 sender='ritugopalam6@gmail.com',  # Ensure this matches MAIL_USERNAME
-#                 recipients=[to]  # Replace with actual recipient's email
-#             )
-#     msg.body = body
-#     mail.send(msg)
+#      msg = Message(
+#                  subject=subject, 
+#                  sender='ritugopalam6@gmail.com',  # Ensure this matches MAIL_USERNAME
+#                  recipients=[to]  # Replace with actual recipient's email
+#              )
+#      msg.body = body
+#      mail.send(msg)
 
-# def send_template_email(subject, to, template):
-#     msg = Message(
-#                 subject=subject, 
-#                 sender='ritugopalam6@gmail.com',  # Ensure this matches MAIL_USERNAME
-#                 recipients=[to ]  # Replace with actual recipient's email
-#             )
-#     msg.html = render_template(template, user=current_user)
-#     mail.send(msg)
+def send_template_email(subject, to, template):
+     msg = Message(
+                 subject=subject, 
+                 sender='coderdojo010101@gmail.com',  # Ensure this matches MAIL_USERNAME
+                 recipients=[to ]  # Replace with actual recipient's email
+             )
+     msg.html = render_template(template, user=current_user)
+     mail.send(msg)
     
 def create_app():
     app = Flask(__name__)
-    # app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    # app.config['MAIL_PORT'] = 587
-    # app.config['MAIL_USERNAME'] = 'coderdojo010101@gmail.com'  # Use your actual Gmail address
-    # app.config['MAIL_PASSWORD'] = 'vvhx vwpe zrvj itau'        #os.environ.get('GMAIL_APP_PASSWORD', None)     # Use your generated App Password
-    # app.config['MAIL_USE_TLS'] = True
-    # app.config['MAIL_USE_SSL'] = False
-    # mail = Mail(app)
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USERNAME'] = 'coderdojo010101@gmail.com'  # Use your actual Gmail address
+    app.config['MAIL_PASSWORD'] = 'vvhx vwpe zrvj itau'        #os.environ.get('GMAIL_APP_PASSWORD', None)     # Use your generated App Password
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_SSL'] = False
+    mail = Mail(app)
     app.config['SECRET_KEY'] = 'my_secret_key'
     if os.getenv('DATABASE_URL'):
         app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL').replace("postgres://", "postgresql://", 1)
@@ -58,6 +58,7 @@ def create_app():
             db.create_all()
             app.logger.info('Initialized the database!')
             admin_user = User(email='coderdojo010101', password='', first_name='Ritu', last_name='Gopalam', type='GOOGLE', role='ADMIN')
+            #admin_user = User(email='ritugopalam6@gmail.com', passowrd='ritu1806', first_name = 'Ritu', last_name = 'Gopalam', type='CUSTOM', role='ADMIN')
             db.session.add(admin_user)
             db.session.commit()
     else:
