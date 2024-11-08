@@ -31,11 +31,3 @@ class OrganiseActivityForm(FlaskForm):  # Example form using Flask-WTF
     activity_time = TimeField('Activity Time', validators=[DataRequired()])
     submit = SubmitField('Organise Activity')
 
-
-
-
-class BookActivity(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    activity_id = db.Column(db.Integer, db.ForeignKey('organise_activity.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
