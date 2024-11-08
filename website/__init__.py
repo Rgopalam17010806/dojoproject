@@ -33,8 +33,8 @@ def create_app():
     app = Flask(__name__)
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USERNAME'] = 'coderdojo010101@gmail.com'  # Use your actual Gmail address
-    app.config['MAIL_PASSWORD'] = 'zspy roke vnei wemo'        #os.environ.get('GMAIL_APP_PASSWORD', None)     # Use your generated App Password
+  # Use your actual Gmail address
+    #os.environ.get('GMAIL_APP_PASSWORD', None)     # Use your generated App Password
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
     mail = Mail(app)
