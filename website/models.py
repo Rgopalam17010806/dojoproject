@@ -15,8 +15,8 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
     phone = db.Column(db.String(50))
-    type = db.Column(db.String(10))
-    role = db.Column(db.String(10))
+    type = db.Column(db.String(10), nullable=False)
+    role = db.Column(db.String(10), default='user')
 
 class OrganiseActivity(db.Model): 
     id = db.Column(db.Integer, primary_key=True)
@@ -30,6 +30,8 @@ class OrganiseActivityForm(FlaskForm):  # Example form using Flask-WTF
     activity_date = DateField('Activity Date', validators=[DataRequired()])
     activity_time = TimeField('Activity Time', validators=[DataRequired()])
     submit = SubmitField('Organise Activity')
+
+
 
 
 class BookActivity(db.Model):

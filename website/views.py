@@ -10,7 +10,7 @@ views = Blueprint('views', __name__)
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user.role != 'ADMIN':  # Check if user is authenticated
+        if not current_user.is_authenticated or getattr(current_user, 'role', None) != 'ADMIN': # Check if user is authenticated
             flash('You need to be an administrator.')
             return redirect(url_for('views.home'))  # Redirect to login if not authenticated
         return f(*args, **kwargs)
@@ -50,10 +50,6 @@ def bookactivity(activity_id):
     return redirect(url_for('views.bookactivities'))  # Redirect to the activities list
 
 
-@views.route('/myactivities')
-@login_required
-def myactivities():
-    return render_template("myactivities.html", user=current_user)
 
 
 @views.route('/organiseactivity', methods=['GET','POST'])
