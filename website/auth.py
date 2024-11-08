@@ -8,7 +8,7 @@ from oauthlib.oauth2 import WebApplicationClient
 from .models import User
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_required, login_user, logout_user, current_user
-from website import db
+from website import db, send_template_email
 from website import mail
 
 auth = Blueprint('auth', __name__)
@@ -18,6 +18,7 @@ GOOGLE_DISCOVERY_URL = (
 
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', None)
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', None)
 
@@ -66,7 +67,7 @@ def callback():
                         last_name=last_name, phone='', type='GOOGLE')
             db.session.add(user)
             db.session.commit()
-            # send_template_email("Coders Dojo Registration", users_email, 'emails/registration.html')
+            send_template_email("Coders Dojo Registration", users_email, 'emails/registration.html')
         if user.type != "GOOGLE":
             flash('Looks like you have signed in using username and password before, try logging in using username '
                   'and password combination', category='error')
@@ -82,7 +83,7 @@ def callback():
         return render_template("login.html", user=current_user)
 
 
-def get_google_provider_config():
+def get_google_provider_config():       
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
@@ -139,7 +140,7 @@ def signup():
                         last_name=lastName, phone=phone,type='CUSTOM')
             db.session.add(user)
             db.session.commit()
-            # send_template_email("Coders Dojo Registration", email, 'emails/registration.html')
+            send_template_email("Coders Dojo Registration", email, 'emails/registration.html')
             flash('Account created', category='success')
             login_user(user, remember=True)
             #return redirect(url_for('views.home'))
