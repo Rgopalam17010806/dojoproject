@@ -44,9 +44,9 @@ def organiseactivity_view():
     today_date = date.today().strftime('%Y-%m-%d')
     if form.validate_on_submit():
         new_activity = OrganiseActivity(
-            activity_name=form.activityname.data,
-            activity_date=form.activitydate.data,
-            activity_time = form.activitytime.data
+            activity_name=form.activity_name.data,
+            activity_date=form.activity_date.data,
+            activity_time = form.activity_time.data
         )
         db.session.add(new_activity)
         db.session.commit()

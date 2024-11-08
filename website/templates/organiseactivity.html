@@ -7,7 +7,7 @@
 {% block content %}
 {% if user.is_authenticated %}
 <div class="rectangle">
-    <form method="POST" action="{{ url_for('organiseactivity') }}">
+    <form method="POST" action="{{ url_for('views.organiseactivity_view') }}">
         {{ form.hidden_tag() }}
 
         {% if form.errors %}
