@@ -3,7 +3,7 @@ from functools import wraps
 from flask import Blueprint, redirect, render_template, flash, url_for
 from flask_login import login_required, current_user
 from website import db
-from website.models import OrganiseActivity, OrganiseActivityForm
+from website.models import BookActivity, OrganiseActivity, OrganiseActivityForm
 
 views = Blueprint('views', __name__)
 
@@ -21,19 +21,35 @@ def admin_required(f):
 def home():
     return render_template("home.html", user=current_user)
 
-@views.route('/myactivities')
+
+@views.route('/bookactivity/<int:activity_id>', methods=['POST'])
 @login_required
-def myactivites():
-    return render_template("myactivities.html")
+def bookactivity(activity_id):
+    # Fetch the activity based on the provided activity_id
+    activity = OrganiseActivity.query.get(activity_id)
+
+    # Check if the activity exists
+    if not activity:
+        flash('Activity not found.', 'danger')
+        return redirect(url_for('views.home'))
+
+    # Create a booking instance
+    booking = BookActivity(activity_id=activity.id, user_id=current_user.id)
+
+    try:
+        # Add the booking to the session and commit to the database
+        db.session.add(booking)
+        db.session.commit()
+        flash('Activity booked successfully', 'success')
+    except Exception as e:
+        # Rollback if there is an error during the booking process
+        db.session.rollback()
+        flash('There was an error when booking the activity: ' + str(e), 'danger')
+
+    # Redirect to a confirmation page or back to the booking activities page
+    return redirect(url_for('views.bookactivities'))  # Redirect to the activities list
 
 
-@views.route('/bookactivity')
-@login_required
-def bookactivity():
-    today = datetime.today().date()
-    activities = OrganiseActivity.query.filter(OrganiseActivity.activity_date >= today).all()
-
-    return render_template("bookactivity.html", user=current_user, activities=activities)
 
 
 @views.route('/organiseactivity', methods=['GET','POST'])
