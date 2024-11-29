@@ -11,14 +11,14 @@ db = SQLAlchemy()
 DB_NAME = "database.db"
 mail = Mail()
 
-# def send_email(subject, to, body):
-#     msg = Message(
-#                 subject=subject, 
-#                 sender='ritugopalam6@gmail.com',  # Ensure this matches MAIL_USERNAME
-#                 recipients=[to]  # Replace with actual recipient's email
-#             )
-#     msg.body = body
-#     mail.send(msg)
+def send_email(subject, to, body):
+    msg = Message(
+                subject=subject, 
+                sender='coderdojo010101@gmail.com',  # Ensure this matches MAIL_USERNAME
+                recipients=[to]  # Replace with actual recipient's email
+            )
+    msg.body = body
+    mail.send(msg)
 
 def send_template_email(subject, to, template):
      msg = Message(
@@ -33,10 +33,14 @@ def create_app():
     app = Flask(__name__)
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
-  # Use your actual Gmail address
-    #os.environ.get('GMAIL_APP_PASSWORD', None)     # Use your generated App Password
+    # Use your generated App Password
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
+    app.config['MAIL_USERNAME'] = 'coderdojo010101@gmail.com'  # Use your actual Gmail address
+    app.config['MAIL_PASSWORD'] = os.environ.get('GMAIL_APP_PASSWORD', None)
+
+    #remove the following before commit
+
     mail = Mail(app)
     app.config['SECRET_KEY'] = 'my_secret_key'
     if os.getenv('DATABASE_URL'):

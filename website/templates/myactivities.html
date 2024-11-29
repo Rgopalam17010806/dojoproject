@@ -3,6 +3,27 @@
 {% block header %} My Activities {% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
-
+<div class="container mt-4">
+    <div class="row">
+        {% for act in my_activities %}
+            <div class="col-md-4 mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img width="200" height="200" src="{{ url_for('static', filename=act.image_url) }}"
+                     class="card-img-top" alt="{{ act.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ act.name }}</h5>
+                        <p class="card-text">{{ act.description }}</p>
+                        <p class="card-text">{{ act.teacher }}</p>
+                        <p class="card-text">{{ act.date }} {{ act.start_time }} to {{ act.end_time }}</p>
+                        <form method="POST" action="{{ url_for('views.unregisteractivity') }}">
+                            <input type="hidden" name="booking_id" value="{{ act.id }}">
+                            <button type="submit" class="btn btn-primary">Un register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endif %}
 {% endblock %}

@@ -29,13 +29,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="/bookactivity">Book an activity</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="activitiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Activities
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="activitiesDropdown">
-                    <li><a class="dropdown-item" href="/myactivities">My Activities</a></li>
-                </ul> 
+            <li class="nav-item">
+                <a class="nav-link" href="/myactivities">My Activities</a>
             </li>
             {% if user.role == 'ADMIN' %}
             <li class="nav-item">

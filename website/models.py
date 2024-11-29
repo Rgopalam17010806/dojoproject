@@ -1,12 +1,6 @@
-from datetime import datetime
-from wtforms import DateField, StringField, SubmitField, TimeField
 from website import db
 from flask_login import UserMixin
-from flask_wtf import FlaskForm
-from wtforms.validators import DataRequired
-import pytz
-
-
+from sqlalchemy.orm import relationship
 
 class User(db.Model, UserMixin):  
     id = db.Column(db.Integer, primary_key=True)
@@ -18,25 +12,8 @@ class User(db.Model, UserMixin):
     type = db.Column(db.String(10), nullable=False)
     role = db.Column(db.String(10), default='user')
 
-class OrganiseActivity(db.Model): 
-    id = db.Column(db.Integer, primary_key=True)
-    activity_name = db.Column(db.String(150), nullable=False)
-    activity_date = db.Column(db.Date, nullable=False)
-    activity_time = db.Column(db.Time, nullable=False)
-    
-
-class OrganiseActivityForm(FlaskForm):  # Example form using Flask-WTF
-    activity_name = StringField('Activity Name', validators=[DataRequired()])
-    activity_date = DateField('Activity Date', validators=[DataRequired()])
-    activity_time = TimeField('Activity Time', validators=[DataRequired()])
-    submit = SubmitField('Organise Activity')
-
 class BookActivity(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(100), nullable = False)
-    description = db.Column(db.String(100), nullale = False)
-    price = db.Column(db.string(100), nullable = False)
-
-
-# class BookActivityForm():
-#     name = 
+    activity_id = db.Column(db.Integer, nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = relationship('User', foreign_keys='BookActivity.user_id')
