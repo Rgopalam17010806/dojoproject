@@ -31,3 +31,12 @@ class OrganiseActivityForm(FlaskForm):  # Example form using Flask-WTF
     activity_time = TimeField('Activity Time', validators=[DataRequired()])
     submit = SubmitField('Organise Activity')
 
+class BookActivity(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(100), nullable = False)
+    description = db.Column(db.String(100), nullale = False)
+    price = db.Column(db.string(100), nullable = False)
+
+
+# class BookActivityForm():
+#     name = 

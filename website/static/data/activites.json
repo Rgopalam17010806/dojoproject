@@ -1,0 +1,74 @@
+{
+    "activities": [
+        {
+            "name": "Python Basics Workshop",
+            "skills": "Loops, Variables, Functions",
+            "description": "Learn the fundamentals of Python programming.",
+            "price": 0.00,
+            "image_url": "images/activities/python_basics.jpg"
+        },
+        {
+            "name": "JavaScript for Beginners",
+            "skills": "DOM Manipulation, Events, Basic Syntax",
+            "description": "Explore the basics of JavaScript to create interactive websites.",
+            "price": 0.00,
+            "image_url": "images/activities/javascript_beginners.jpg"
+        },
+        {
+            "name": "C++ Programming Challenge",
+            "skills": "Problem Solving, Data Structures, Algorithms",
+            "description": "Compete in solving complex problems using C++.",
+            "price": 0.00,
+            "image_url": "images/activities/cplusplus_challenge.jpg"
+        },
+        {
+            "name": "HTML & CSS Design Session",
+            "skills": "Web Design, Styling, Page Layout",
+            "description": "Create stunning webpages with HTML and CSS.",
+            "price": 0.00,
+            "image_url": "images/activities/html_css_design.jpg"
+        },
+        {
+            "name": "Java App Development",
+            "skills": "Object-Oriented Programming, GUI Design, Android Basics",
+            "description": "Develop simple applications using Java.",
+            "price": 0.00,
+            "image_url": "images/activities/java_app_dev.jpg"
+        },
+        {
+            "name": "Build a Website with React",
+            "skills": "React Components, Props, State Management",
+            "description": "Dive into React and build a functional website.",
+            "price": 0.00,
+            "image_url": "images/activities/react_website.jpg"
+        },
+        {
+            "name": "Data Science with R",
+            "skills": "Data Analysis, Visualization, Statistics",
+            "description": "Analyze and visualize data using R.",
+            "price": 0.00,
+            "image_url": "images/activities/data_science_r.jpg"
+        },
+        {
+            "name": "Intro to Machine Learning with Python",
+            "skills": "Linear Regression, Data Preprocessing, Model Evaluation",
+            "description": "Understand the basics of machine learning using Python.",
+            "price": 0.00,
+            "image_url": "images/activities/ml_python_intro.jpg"
+        },
+        {
+            "name": "Go Lang Performance Tuning",
+            "skills": "Concurrency, Goroutines, Channels",
+            "description": "Learn Go programming for high-performance systems.",
+            "price": 0.00,
+            "image_url": "images/activities/go_lang_tuning.jpg"
+        },
+        {
+            "name": "Rust Systems Programming",
+            "skills": "Memory Safety, Ownership, Performance",
+            "description": "Understand how to build secure and efficient systems with Rust.",
+            "price": 0.00,
+            "image_url": "images/activities/rust_programming.jpg"
+        }
+    ]
+}

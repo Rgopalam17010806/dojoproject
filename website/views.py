@@ -1,9 +1,10 @@
 from datetime import date, datetime
 from functools import wraps
-from flask import Blueprint, redirect, render_template, flash, url_for
+import os
+from flask import Blueprint, json, redirect, render_template, flash, url_for
 from flask_login import login_required, current_user
 from website import db
-from website.models import BookActivity, OrganiseActivity, OrganiseActivityForm
+from website.models import OrganiseActivity, OrganiseActivityForm
 
 views = Blueprint('views', __name__)
 
@@ -21,33 +22,18 @@ def admin_required(f):
 def home():
     return render_template("home.html", user=current_user)
 
+def load_menu():
+    SITE_ROOT = os.path.relpath(os.path.dirname(__file__))
+    json_url = os.path.join(SITE_ROOT, "static/data", "activities.json")
+    with open(json_url) as activity_file:
+        return json.load(activity_file)
 
-@views.route('/bookactivity/<int:activity_id>', methods=['POST'])
+
+@views.route('/bookactivity')
 @login_required
-def bookactivity(activity_id):
-    # Fetch the activity based on the provided activity_id
-    activity = OrganiseActivity.query.get(activity_id)
-
-    # Check if the activity exists
-    if not activity:
-        flash('Activity not found.', 'danger')
-        return redirect(url_for('views.home'))
-
-    # Create a booking instance
-    booking = BookActivity(activity_id=activity.id, user_id=current_user.id)
-
-    try:
-        # Add the booking to the session and commit to the database
-        db.session.add(booking)
-        db.session.commit()
-        flash('Activity booked successfully', 'success')
-    except Exception as e:
-        # Rollback if there is an error during the booking process
-        db.session.rollback()
-        flash('There was an error when booking the activity: ' + str(e), 'danger')
-
-    # Redirect to a confirmation page or back to the booking activities page
-    return redirect(url_for('views.bookactivities'))  # Redirect to the activities list
+def bookactivity():
+    activity = load_menu()
+    return redirect(url_for('bookactivity.html', activity))  # Redirect to the activities list
 
 
 
