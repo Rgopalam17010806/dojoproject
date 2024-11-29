@@ -3,7 +3,6 @@
 {% block header %} Home {% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
-
 <div id="homeCarousel" class="carousel slide">
     <div class="carousel-inner">
       <div class="carousel-item active" id="image1">
@@ -25,5 +24,16 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+
+<script>
+    let user_id = '{{ user.id }}';
+</script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-messaging.js"></script>
+<script
+    src="{{ url_for('static', filename='messaging.js') }}"
+    type="application/javascript">
+</script>
 {% endif %}
 {% endblock %}

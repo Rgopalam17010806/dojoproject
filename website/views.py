@@ -1,11 +1,84 @@
 from functools import wraps
 import os
-from flask import Blueprint, json, redirect, render_template, flash, request, session, url_for
+from flask import Blueprint, json, jsonify, redirect, render_template, flash, request, send_from_directory, session, url_for
 from flask_login import login_required, current_user
+import requests
 from website import db
-from website.models import BookActivity
+from website.models import BookActivity, User
+
+# Replace 'YOUR_SERVER_KEY' with the actual Server Key from Firebase console
+FCM_SERVER_KEY = 'AIzaSyCZWJH5JFipBh-_rr0khrhCKBvWxmD6it4'
 
 views = Blueprint('views', __name__)
+
+##########################Push Notifications##################################
+def send_firebase_multicast_notification(tokens, title, body):
+    url = 'https://fcm.googleapis.com/fcm/send'
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=' + FCM_SERVER_KEY
+    }
+    payload = {
+        'notification': {
+            'title': title,
+            'body': body,
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',  # Customize action if needed
+            'icon': 'your-icon-url'  # URL or path to your notification icon
+        },
+        'registration_ids': tokens  # List of device tokens
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    return response.json()
+
+
+def send_firebase_push_notification(token, title, body):
+    url = 'https://fcm.googleapis.com/fcm/send'
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=' + FCM_SERVER_KEY
+    }
+    payload = {
+        'notification': {
+            'title': title,
+            'body': body,
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',  # Customize action if needed
+            'icon': 'https://codordojo.onrender.com/static/favicon.ico'  # URL or path to your notification icon
+        },
+        'to': token
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    return response.json()
+
+
+@views.route('/send_notification', methods=['POST'])
+def send_notification():
+    data = request.get_json()
+    token = data.get('token')  # Token for the recipient device
+    title = data.get('title')  # Notification title
+    body = data.get('body')  # Notification body
+    if not token or not title or not body:
+        return jsonify({'error': 'Invalid data'}), 400
+    result = send_firebase_push_notification(token, title, body)
+    return jsonify(result), 200
+
+
+@views.route('/firebase-messaging-sw.js')
+def service_worker():
+    return send_from_directory('static', 'firebase-messaging-sw.js')
+
+
+@views.route('/save_token', methods=['POST'])
+def save_token():
+    data = request.get_json()
+    user_id = data['user_id']
+    token = data['token']
+    # Save this token to the database for the user
+    user = User.query.get(user_id)
+    user.fcm_token = token
+    db.session.commit()
+    return jsonify({'message': 'Token saved successfully'}), 200
+
+#######################################################################
 
 def admin_required(f):
     @wraps(f)

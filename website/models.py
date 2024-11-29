@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(50))
     type = db.Column(db.String(10), nullable=False)
     role = db.Column(db.String(10), default='user')
+    fcm_token = db.Column(db.String(250))
 
 class BookActivity(db.Model):
     id = db.Column(db.Integer, primary_key = True)

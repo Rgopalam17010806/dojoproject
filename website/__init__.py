@@ -40,6 +40,7 @@ def create_app():
     app.config['MAIL_PASSWORD'] = os.environ.get('GMAIL_APP_PASSWORD', None)
 
     #remove the following before commit
+    #app.config['MAIL_PASSWORD'] = ''
 
     mail = Mail(app)
     app.config['SECRET_KEY'] = 'my_secret_key'
